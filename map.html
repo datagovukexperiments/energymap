@@ -1,0 +1,316 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"> 
+<html> 
+<head> 
+	<title>Energy Map</title> 
+	
+    <script type="text/javascript" src="jquery-1.4.2.min.js"></script> 
+    <script type="text/javascript" src="jquery.xcolor.js"></script> 
+    <script type="text/javascript" src="polymaps.min.js"></script> 
+    <script type="text/javascript" src="nns.min.js"></script> 
+    <style type="text/css"> 
+
+	html, body {
+		height: 100%;
+		width: 100%;
+		padding: 0px;
+		margin: 0px;
+	}
+ 
+	#map {
+  		background: #E6E6E6;
+		z-index: 1;
+		height:100%;
+		width:100%
+	}
+ 
+	.layer circle {
+  		fill-opacity: .5;
+  		stroke: black;
+  		vector-effect: scaling-stroke;
+	}
+	
+	#copy {
+  		color: #000;
+  		opacity: .5;
+	}
+ 
+	#copy a {
+  		color: #000;
+	}
+ 
+	.mappoint:hover {
+  		fill-opacity: 0.8;
+	}
+ 
+    </style> 
+ 
+ 
+</head> 
+<body> 
+			
+ 
+		<div id="map"> 
+		</div> 
+ 
+ 
+ 
+  	<script type="text/javascript"> 
+ 
+ 
+		
+		
+	dataset = [
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.12633,
+                51.503899
+            ]
+        },
+        k: "co",
+        value: 77.0,
+        "vpg": 0.005,
+        "vpf": 0.244,
+        "vpn": 0.015
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.12964,
+                51.50782
+            ]
+        },
+        k: "dcms",
+        value: 70.0,
+        "vpg": 0.006,
+        "vpf": 0.111,
+        "vpn": 0.009
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.12713,
+                51.49559
+            ]
+        },
+        k: "defra",
+        value: 59.36,
+        "vpg": 0.004,
+        "vpf": 0.051,
+        "vpn": 0.004
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.13026,
+                51.50301
+            ]
+        },
+        k: "hmrc",
+        value: 150.9,
+        "vpg": 0.003,
+        "vpf": 0.092,
+        "vpn": 0.004
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.13356,
+                51.499969
+            ]
+        },
+        k: "hmt",
+        value: 310.0,
+        "vpg": 0.008,
+        "vpf": 0.192,
+        "vpn": 0.016
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.12727,
+                51.502651
+            ]
+        },
+        k: "decc",
+        value: 45.84,
+        "vpg": 0.004,
+        "vpf": 0.042,
+        "vpn": 0.005
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.12769,
+                51.502411
+            ]
+        },
+        k: "fco",
+        value: 307.7,
+        "vpg": 0.005,
+        "vpf": 0.17,
+        "vpn": 0.008
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.13356,
+                51.5009
+            ]
+        },
+        k: "moj",
+        value: 280.0,
+        "vpg": 0.007,
+        "vpf": 0.09,
+        "vpn": 0.009
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.12543,
+                51.505589
+            ]
+        },
+        k: "mod",
+        value: 1184.0,
+        "vpg": 0.013,
+        "vpf": 0.32,
+        "vpn": 0.019
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.12918,
+                51.494339
+            ]
+        },
+        k: "dft",
+        value: 245.0,
+        "vpg": 0.009,
+        "vpf": 0.142,
+        "vpn": 0.011
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.12918,
+                51.494339
+            ]
+        },
+        k: "ho",
+        value: 335.0,
+        "vpg": 0.005,
+        "vpf": 0.096,
+        "vpn": 0.008
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.14178,
+                51.49884
+            ]
+        },
+        k: "dfid",
+        value: 105.36,
+        "vpg": 0.004,
+        "vpf": 0.099,
+        "vpn": 0.006
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.13095,
+                51.498718
+            ]
+        },
+        k: "bis",
+        value: 149.2,
+        "vpg": 0.003,
+        "vpf": 0.06,
+        "vpn": 0.005
+    },
+    {
+        geometry: {
+            type: "Point",
+            coordinates: [
+                -0.13356,
+                51.5009
+            ]
+        },
+        k: "dwp",
+        value: 87.0,
+        "vpg": 0.004,
+        "vpf": 0.049,
+        "vpn": 0.004
+    }
+]
+ 
+ 
+var po = org.polymaps;
+ 
+var svg = n$("#map").add("svg:svg");
+ 
+ 
+ 
+function drawMap(data) {
+	
+	var map = po.map()
+    	.container($n(svg))
+    	.center({lat: 51.501, lon: -0.1329})
+    	.zoom(15)
+ 
+	map.add(po.image()
+    	.url(po.url("http://{S}tile.cloudmade.com"
+    	+ "/3c03d97a373540a09c4c3af896f7d15b" // http://cloudmade.com/register
+    	+ "/1930/256/{Z}/{X}/{Y}.png")
+    	.hosts(["a.", "b.", "c.", ""])));
+ 
+	map.add(po.geoJson()
+    	.features(data)
+    	.on("load", function (e) {
+  			for (var i = 0; i < e.features.length; i++) {
+    			var c = n$(e.features[i].element),
+        		g = c.parent().add("svg:g", c);
+				
+    			g.attr("transform", "translate(" + c.attr("cx") + "," + c.attr("cy") + ")");
+				g.attr("id", data[i].k);
+ 
+ 
+    			g.add("svg:circle")
+					.attr("class", "mappoint")
+					.attr("id", data[i].k)
+					.attr("fill", $.xcolor.gradientlevel('#60f', '#f00', data[i].vpg * 1000, 15))
+        			.attr("r", (data[i].vpf * 200));
+ 
+				g.add("svg:title")
+					.text(data[i].label);
+  			}
+		})
+	);
+	
+}
+		
+	drawMap(dataset);
+ 
+</script> 
+ 
+	
+	
+ 
+ 
+</body> 
+</html> 
+ 
